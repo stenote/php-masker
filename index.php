@@ -34,7 +34,7 @@ class Package {
     }
 
     static function Usage() {
-        die("usage: php package.php -s|--source somewhere -d|--dest somewhere -q|--quiet \n");
+        die("usage: php masker.phar -s|--source somewhere -d|--dest anywhere [-q|--quiet=1] \n");
     }
 
     function run() {
