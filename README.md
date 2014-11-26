@@ -9,6 +9,11 @@ Usage
   Usage: php masker.phar -s|--source somewhere -d|--dest anywhere [-q|--quiet=1]
 
 Build a new phar
-============
+===============
 
 You can fix code and use [box2](https://github.com/box-project/box2) build a masker.phar
+
+Install masker
+==============
+
+    $ sudo cp masker.phar /usr/local/bin/masker
