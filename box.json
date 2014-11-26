@@ -1,0 +1,14 @@
+{
+	"files": [
+ 		"compiler.jar", 
+		"cssp.php", 
+		"cssp_prefix.cssp", 
+		"html.php", 
+		"jsmin.php", 
+		"php_encoder.php", 
+		"php_mcompiler.php", 
+		"php_obfuscator.php"
+	],
+    "main": "index.php",
+	"output" : "masker.phar"
+}
