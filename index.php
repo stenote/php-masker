@@ -26,11 +26,11 @@ class Package {
             self::Usage();
         }
 
-        $this->source = $source;
+        $this->source = $opts['s'] ? : $opts['source'];
 
-        $this->dest = $dest;
+        $this->dest = $opts['d'] ? : $opts['dest'];
 
-        $this->quiet = $quiet;
+        $this->quiet = $opts['q'] ? : $opts['quiet'];
     }
 
     static function Usage() {
