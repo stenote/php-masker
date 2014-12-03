@@ -43,8 +43,14 @@ class Package {
 
         echo "目录复制: {$this->source} -> {$this->dest} \n";
 
-        //进行文件copy
-        @exec("cp -R {$this->source} {$this->dest}");
+	if (is_file($this->source)) { 
+		//进行文件copy
+		@exec("cp -R {$this->source} {$this->dest}");
+	}
+	else {
+		//进行文件copy
+		@exec("cp -R {$this->source}/* {$this->dest}");
+	}
 
         //遍历文件
         self::traverse($this->dest, [$this, 'encode_file']);
