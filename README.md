@@ -1,19 +1,27 @@
 php-masker
 ==========
 
-Command-line script to minify js、minify html、minify css、obfuscate php
+A command-line tool to minify JavaScript, HTML, CSS and obfuscate PHP.
 
 Usage
 =====
 
-  Usage: php masker.phar -s|--source somewhere -d|--dest anywhere [-q|--quiet=1]
+```bash
+$ php masker.phar -s|--source somewhere -d|--dest anywhere [-q|--quiet=1]
+```
 
 Build a new phar
 ===============
 
-You can fix code and use [box2](https://github.com/box-project/box2) build a masker.phar
+You can modify the code and use [box2](https://github.com/box-project/box2) to build a new `masker.phar`.
+
+```bash
+$ box build -v
+```
 
 Install masker
 ==============
 
-    $ sudo cp masker.phar /usr/local/bin/masker
+```bash
+$ sudo cp masker.phar /usr/local/bin/masker
+```
