@@ -5,19 +5,19 @@ error_reporting(E_ALL ^ E_NOTICE);
 
 require_once 'php_encoder.php';
 
-class Package {
-
+class Package
+{
     public $source;
     public $dest;
     public $quiet;
 
-    function __construct() {
-
-        $shortopts = 's:d:q:';
+    public function __construct()
+    {
+        $shortopts = 's:d:q::';
         $longopts = [
             'source:',
             'dest:',
-            'quiet:'
+            'quiet::',
         ];
 
         $opts = getopt($shortopts, $longopts);
@@ -26,40 +26,44 @@ class Package {
             self::Usage();
         }
 
-        $this->source = $opts['s'] ? : $opts['source'];
+        $this->source = $opts['s'] ?: $opts['source'];
 
-        $this->dest = $opts['d'] ? : $opts['dest'];
+        $this->dest = $opts['d'] ?: $opts['dest'];
 
-        $this->quiet = $opts['q'] ? : $opts['quiet'];
+        $this->quiet = isset($opts['q']) || isset($opts['quiet']);
     }
 
-    static function Usage() {
-        die("usage: php masker.phar -s|--source somewhere -d|--dest anywhere [-q|--quiet=1] \n");
+    public static function Usage()
+    {
+        die("usage: php masker.phar -s|--source somewhere -d|--dest anywhere [-q|--quiet] \n");
     }
 
-    function run() {
-
-        if ($this->quiet) ob_start();
+    public function run()
+    {
+        if ($this->quiet) {
+            ob_start();
+        }
 
         echo "目录复制: {$this->source} -> {$this->dest} \n";
 
-	if (is_file($this->source)) { 
-		//进行文件copy
-		@exec("cp -R {$this->source} {$this->dest}");
-	}
-	else {
-		//进行文件copy
-		@exec("cp -R {$this->source}/* {$this->dest}");
-	}
+        if (is_file($this->source)) {
+            //进行文件copy
+        @exec("cp -R {$this->source} {$this->dest}");
+        } else {
+            //进行文件copy
+        @exec("cp -R {$this->source}/* {$this->dest}");
+        }
 
         //遍历文件
         self::traverse($this->dest, [$this, 'encode_file']);
 
-        if ($this->quiet) ob_end_clean();
+        if ($this->quiet) {
+            ob_end_clean();
+        }
     }
 
-    function encode_file($path) {
-
+    public function encode_file($path)
+    {
         if (is_file($path)) {
             //目录打包开始
             echo "正在编码: $path \n";
@@ -67,19 +71,24 @@ class Package {
         }
     }
 
-    static function traverse($path, $callback, $params=NULL, $parent=NULL) {
-        if (FALSE === call_user_func($callback, $path, $params)) return;
+    public static function traverse($path, $callback, $params = null, $parent = null)
+    {
+        if (false === call_user_func($callback, $path, $params)) {
+            return;
+        }
         if (!is_link($path) && is_dir($path)) {
             $path = preg_replace('/[^\/]$/', '$0/', $path);
             $dh = opendir($path);
             if ($dh) {
                 $files = [];
                 while ($file = readdir($dh)) {
-                    if ($file[0] == '.') continue;
+                    if ($file[0] == '.') {
+                        continue;
+                    }
                     $files[] = $file;
                 }
                 sort($files);
-                foreach($files as $file) {
+                foreach ($files as $file) {
                     self::traverse($path.$file, $callback, $params, $path);
                 }
                 closedir($dh);
