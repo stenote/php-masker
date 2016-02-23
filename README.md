@@ -7,5 +7,5 @@ Usage
 =====
 
 ```bash
-$ php masker.phar -s|--source somewhere -d|--dest anywhere [-q|--quiet]
+$ php index.php -s|--source somewhere -d|--dest anywhere [-q|--quiet]
 ```
